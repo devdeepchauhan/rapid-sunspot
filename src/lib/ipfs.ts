@@ -2,10 +2,13 @@ import { v4 as uuidv4 } from "uuid";
 import fs from "fs/promises";
 import path from "path";
 
+import os from "os";
+
 // This is a mock IPFS service for development purposes
 // In production, you would use a service like Pinata, NFT.storage, or Web3.storage
 
-const mockDir = path.join(process.cwd(), "public", "mock-ipfs");
+// Vercel Serverless Functions have a read-only filesystem except for the /tmp directory
+const mockDir = path.join(os.tmpdir(), "mock-ipfs");
 
 async function ensureDir() {
   try {
