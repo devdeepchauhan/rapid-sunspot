@@ -2,18 +2,15 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { hardhat, sepolia } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 
 const config = getDefaultConfig({
   appName: "Certificate Verification System",
-  projectId: "YOUR_PROJECT_ID", // mock ID for localhost
-  chains: [hardhat, sepolia],
-  transports: {
-    [hardhat.id]: http(),
-    [sepolia.id]: http(),
-  },
+  projectId: "30a70545245e4f932ab975cd541c13a6",
+  chains: [sepolia],
+  ssr: true, // Required for Next.js App Router
 });
 
 const queryClient = new QueryClient();
