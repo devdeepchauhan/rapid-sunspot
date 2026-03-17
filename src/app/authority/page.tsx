@@ -48,7 +48,8 @@ export default function AuthorityPage() {
       address: contractAddress.contractAddress as `0x${string}`,
       abi: certManagerAbi,
       functionName: "signCertificate",
-      args: [activeHash]
+      args: [activeHash],
+      gas: BigInt(3000000) // Explicit high gas limit to fix Brave Wallet "Missing gas limit" error on Testnets
     });
   };
 
