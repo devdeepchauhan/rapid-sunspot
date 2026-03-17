@@ -1,4 +1,4 @@
-import { Jimp, loadFont } from "jimp";
+import { Jimp, loadFont, HorizontalAlign, VerticalAlign } from "jimp";
 import QRCode from "qrcode";
 import path from "path";
 
@@ -48,7 +48,8 @@ export async function generateCertificate(
     font: font64,
     x: 0,
     y: image.bitmap.height / 2 - 50,
-    text: { text: data.studentName, alignmentX: 1 as any, alignmentY: 1 as any } // 1 is center
+    text: { text: data.studentName, alignmentX: HorizontalAlign.CENTER, alignmentY: VerticalAlign.MIDDLE },
+    maxWidth: imgWidth
   });
 
   // Example placement: Course name centered below
@@ -56,7 +57,8 @@ export async function generateCertificate(
     font: font32,
     x: 0,
     y: image.bitmap.height / 2 + 50,
-    text: { text: `For successfully completing the course: ${data.courseName}`, alignmentX: 1 as any, alignmentY: 1 as any }
+    text: { text: `For successfully completing the course: ${data.courseName}`, alignmentX: HorizontalAlign.CENTER, alignmentY: VerticalAlign.MIDDLE },
+    maxWidth: imgWidth
   });
 
   // Example placement: Date bottom left
@@ -64,7 +66,7 @@ export async function generateCertificate(
     font: font32,
     x: 100,
     y: image.bitmap.height - 150,
-    text: { text: `Date: ${data.issueDate}`, alignmentX: 0 as any, alignmentY: 1 as any }
+    text: { text: `Date: ${data.issueDate}`, alignmentX: HorizontalAlign.LEFT, alignmentY: VerticalAlign.MIDDLE }
   });
 
   // 5. Composite QR Code in the bottom right corner

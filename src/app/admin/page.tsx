@@ -108,22 +108,22 @@ export default function AdminPage() {
           <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">Student Name</label>
-              <input type="text" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border" value={studentName} onChange={(e) => setStudentName(e.target.value)} />
+              <input type="text" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900 bg-white" value={studentName} onChange={(e) => setStudentName(e.target.value)} />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Course Name</label>
-              <input type="text" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border" value={courseName} onChange={(e) => setCourseName(e.target.value)} />
+              <input type="text" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900 bg-white" value={courseName} onChange={(e) => setCourseName(e.target.value)} />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Issue Date</label>
-              <input type="date" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
+              <input type="date" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900 bg-white" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Authorities Required (Signatures)</label>
-              <input type="number" min="1" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border" value={requiredSignatures} onChange={(e) => setRequiredSignatures(parseInt(e.target.value))} />
+              <input type="number" min="1" required className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md p-2 border text-gray-900 bg-white" value={requiredSignatures} onChange={(e) => setRequiredSignatures(parseInt(e.target.value))} />
             </div>
           </div>
 
