@@ -21,15 +21,20 @@ export async function POST(req: Request) {
     const arrayBuffer = await templateFile.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    // Base URL is required for Jimp to fetch its fonts over HTTP
+    const currentUrl = new URL(req.url);
+    const baseUrl = currentUrl.origin;
+    
     // 1. Generate the final certificate image with overlaid text and QR
     // The QR code will point to a temporary ID (or standard verification path)
     const verifId = `tmp_${Date.now()}`;
-    const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/verify/${verifId}`;
+    const verificationUrl = `${baseUrl}/verify/${verifId}`;
     
     const finalBuffer = await generateCertificate(
       buffer,
       { studentName, courseName, issueDate },
-      verificationUrl
+      verificationUrl,
+      baseUrl
     );
 
     // 2. Upload the new image to IPFS

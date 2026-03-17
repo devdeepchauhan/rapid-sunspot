@@ -2,10 +2,7 @@ import { Jimp, loadFont } from "jimp";
 import QRCode from "qrcode";
 import path from "path";
 
-// No longer relying on node_modules paths which are stripped by Vercel
-const FONT_64_PATH = path.join(process.cwd(), "public", "fonts", "open-sans", "open-sans-64-black", "open-sans-64-black.fnt");
-const FONT_32_PATH = path.join(process.cwd(), "public", "fonts", "open-sans-32-black", "open-sans-32-black.fnt");
-
+// Fonts will be loaded dynamically via absolute HTTP URL to bypass Vercel serverless FS constraints.
 export interface CertificateData {
   studentName: string;
   courseName: string;
@@ -15,7 +12,8 @@ export interface CertificateData {
 export async function generateCertificate(
   templateBuffer: Buffer,
   data: CertificateData,
-  verificationUrl: string
+  verificationUrl: string,
+  baseUrl: string
 ): Promise<Buffer> {
   // 1. Load the template image
   const image = await Jimp.read(templateBuffer);
@@ -34,9 +32,12 @@ export async function generateCertificate(
   const qrBuffer = Buffer.from(base64Data, "base64");
   const qrImage = await Jimp.read(qrBuffer);
 
-  // 3. Load Fonts using absolute paths within the public directory
-  const font64 = await loadFont(FONT_64_PATH);
-  const font32 = await loadFont(FONT_32_PATH);
+  // 3. Load Fonts using absolute HTTP paths
+  const font64Url = `${baseUrl}/fonts/open-sans/open-sans-64-black/open-sans-64-black.fnt`;
+  const font32Url = `${baseUrl}/fonts/open-sans/open-sans-32-black/open-sans-32-black.fnt`;
+  
+  const font64 = await loadFont(font64Url);
+  const font32 = await loadFont(font32Url);
 
   // 4. Print text
   // Coordinates are hardcoded for the mockup, assuming a standard template
