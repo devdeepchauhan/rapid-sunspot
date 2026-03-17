@@ -1,6 +1,10 @@
 import { Jimp, loadFont } from "jimp";
 import QRCode from "qrcode";
-import { SANS_64_BLACK, SANS_32_BLACK } from "jimp/fonts";
+import path from "path";
+
+// No longer relying on node_modules paths which are stripped by Vercel
+const FONT_64_PATH = path.join(process.cwd(), "public", "fonts", "open-sans", "open-sans-64-black", "open-sans-64-black.fnt");
+const FONT_32_PATH = path.join(process.cwd(), "public", "fonts", "open-sans-32-black", "open-sans-32-black.fnt");
 
 export interface CertificateData {
   studentName: string;
@@ -30,9 +34,9 @@ export async function generateCertificate(
   const qrBuffer = Buffer.from(base64Data, "base64");
   const qrImage = await Jimp.read(qrBuffer);
 
-  // 3. Load Fonts (Jimp v1+ syntax might differ slightly, using standard imports)
-  const font64 = await loadFont(SANS_64_BLACK);
-  const font32 = await loadFont(SANS_32_BLACK);
+  // 3. Load Fonts using absolute paths within the public directory
+  const font64 = await loadFont(FONT_64_PATH);
+  const font32 = await loadFont(FONT_32_PATH);
 
   // 4. Print text
   // Coordinates are hardcoded for the mockup, assuming a standard template
