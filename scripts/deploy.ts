@@ -1,5 +1,6 @@
 import { ethers, network } from "hardhat";
 import fs from "fs";
+import path from "path";
 
 async function main() {
   console.log("Deploying CertificateManager...");
@@ -17,8 +18,14 @@ async function main() {
     network: network.name,
     chainId: network.config.chainId,
   };
+
+  const configPath = path.join(__dirname, "../src/config");
+  if (!fs.existsSync(configPath)) {
+    fs.mkdirSync(configPath, { recursive: true });
+  }
+
   fs.writeFileSync(
-    "./src/config/contractAddress.json",
+    path.join(configPath, "contractAddress.json"),
     JSON.stringify(frontendConfig, null, 2)
   );
   console.log("Contract address saved to src/config/contractAddress.json");
